@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse Thermometer with Sound</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>   REVERSE THERMOMETER</h2>
+    <style>
+        body {
+          background-image: url('images/background.webp');
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+        }
+        </style>
+    <audio id="alertSound" src="retro-warning-157795.mp3" preload="auto"></audio>
+    <div class="container">
+        <div class="thermometer">
+            <div class="temperature" id="temperature"></div>
+        </div>
+        <input type="range" id="tempInput" min="0" max="100" value="100">
+        <p>Current Temperature: <span id="currentTemp">100</span>°C</p>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        const threshold = 30; // Set the temperature threshold
+        const tempDisplay = document.getElementById("temperature");
+        const currentTempDisplay = document.getElementById("currentTemp");
+        const alertSound = document.getElementById("alertSound");
+        const tempInput = document.getElementById("tempInput");
+
+        function updateTemperature() {
+            const temperature = parseInt(tempInput.value);
+            tempDisplay.style.height = temperature + '%'; // Adjust the thermometer height
+            currentTempDisplay.textContent = temperature; // Update displayed temperature
+
+            // Play sound if temperature reaches or drops below threshold
+            if (temperature <= threshold) {
+                alertSound.play();
+            }
+        }
+
+        tempInput.addEventListener('input', updateTemperature);
+        updateTemperature(); // Initialize display
+    </script>
+</body>
+</html>
